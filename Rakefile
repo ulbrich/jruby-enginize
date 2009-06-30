@@ -20,7 +20,7 @@ spec = Gem::Specification.new do |spec|
   spec.platform = Gem::Platform::RUBY
   spec.name = 'jruby-enginize'
   spec.homepage = 'http://github.com/ulbrich/jruby-enginize'
-  spec.version = '0.2'
+  spec.version = '0.3'
   spec.author = 'Jan Ulbrich'
   spec.email = 'jan.ulbrich @nospam@ holtzbrinck.com'
   spec.summary = 'A package for generating Google AppEngine compliant JRuby projects.'
@@ -29,9 +29,9 @@ spec = Gem::Specification.new do |spec|
   spec.test_files = Dir.glob('tests/*.rb')
   spec.has_rdoc = true
   spec.executables = ['jruby-enginize']
-  spec.extra_rdoc_files = ['README']
+  spec.extra_rdoc_files = ['README.rdoc']
   spec.rdoc_options << '--exclude' << 'pkg' << '--exclude' << 'templates' <<
-    '--all' << '--title' << 'JRuby-Enginize' << '--main' << 'README'
+    '--all' << '--title' << 'JRuby-Enginize' << '--main' << 'README.rdoc'
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|
@@ -53,5 +53,5 @@ task :doc do
   `rm -rf doc`
 
   `rdoc --include bin/jruby-enginize --exclude pkg --exclude templates \
-    --all --title "JRuby-Enginize" README lib`
+    --all --title "JRuby-Enginize" README.rdoc lib`
 end

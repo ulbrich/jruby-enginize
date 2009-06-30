@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.platform = Gem::Platform::RUBY
   spec.name = 'jruby-enginize'
   spec.homepage = 'http://github.com/ulbrich/jruby-enginize'
-  spec.version = '0.2'
+  spec.version = '0.3'
   spec.author = 'Jan Ulbrich'
   spec.email = 'jan.ulbrich @nospam@ holtzbrinck.com'
   spec.summary = 'A package for generating Google AppEngine compliant JRuby projects.'
@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.require_path = '.'
   spec.has_rdoc = true
   spec.executables = ['jruby-enginize']
-  spec.extra_rdoc_files = ['README']
+  spec.extra_rdoc_files = ['README.rdoc']
   spec.rdoc_options << '--exclude' << 'pkg' << '--exclude' << 'templates' <<
-    '--all' << '--title' << 'JRuby-Enginize' << '--main' << 'README'
+    '--all' << '--title' << 'JRuby-Enginize' << '--main' << 'README.rdoc'
 end

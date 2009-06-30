@@ -72,18 +72,18 @@ an unstable version and don't want to risk your users getting exceptions.
 
 You can try the new version by opening e.g.
 
-  http://3.latest.foobar.appspot.com
+<tt>http://3.latest.foobar.appspot.com</tt>
 
 and replacing "3" with the version number you want to run.
 
 Switch the application to the new version as default (stable version) by
 opening
 
-  http://appengine.google.com/deployment?&app_id=foobar
+<tt>http://appengine.google.com/deployment?&app_id=foobar</tt>
 
 and setting a new default available at
 
-  http://foobar.appspot.com
+<tt>http://foobar.appspot.com</tt>
 
 A small README with these and a few more application specific hints is
 generated along with the source code. Have fun.

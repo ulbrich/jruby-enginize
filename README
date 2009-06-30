@@ -1,0 +1,107 @@
+= JRuby-Enginize
+
+== About
+
+JRuby-Enginize is a generator for Google AppEngine compliant JRuby
+applications. The generator will support several frameworks but only has
+Sinatra on board for the moment being. If you want to learn more about Google
+AppEngine, go to http://code.google.com/appengine and have a look at the
+tutorials.
+
+*Attention*: Be sure to install with <tt>jgem</tt> as JRuby-Enginize will
+refuse to work in normal Ruby environment. It is for creating application
+running on Google AppEngine and it makes no sense outside JRuby!
+
+== Prerequisites
+
+JRuby-Enginize needs a proper JRuby installation including rake and the
+Google AppEngine SDK for Java. More dependencies depend on the framework
+template to generate an application for: For Sinatra
+(http://www.sinatrarb.com), you will need the "sinatra" gem. Be sure to
+install these gems with <tt>jgem</tt> as you need them for JRuby and not for
+Ruby.
+
+You also need an Google AppEngine account to actually publish your code.
+Without account you can still play around with the tool and run applications
+locally.
+
+== Using jruby-enginize
+
+The gem includes is a single executable named <tt>jruby-enginize</tt> which is
+inspired by the <tt>rails</tt> tool for generating Rails applications. So just
+call
+
+  jruby -S jruby-enginize
+
+and have a look at the options.
+
+Here are the steps for creating and deploying a new Sinatra application:
+
+* Register with Google AppEngine and look for a name for your application
+  which is not already taken. If you don't care about this, you will get in
+  trouble upon deploying your application and have to manually reconfigure
+  all files!
+
+* Generate your application. Sample:
+
+  <tt>jruby -S jruby-enginize --email foo@bar.com foobar</tt>
+
+* Go to the new directory, learn about the available rake tasks and try out
+  your application: 
+
+  <tt>cd foobar</tt>
+  <tt>jruby rake --tasks</tt>
+
+  <tt>jruby -S rake sinatra:run</tt>
+
+* Deploy the application with the application name and e-mail address you 
+  generated with:
+
+  <tt>jruby -S rake appengine:deploy</tt>
+
+You can repeat the deployment whenever you want. Be sure to set the version
+number in "appengine-web.xml" to a new value, when you are experimenting with
+an unstable version and don't want to risk your users getting exceptions.
+
+You can try the new version by opening e.g.
+
+  http://3.latest.foobar.appspot.com
+
+and replacing "3" with the version number you want to run.
+
+Switch the application to the new version as default (stable version) by
+opening
+
+  http://appengine.google.com/deployment?&app_id=foobar
+
+and setting a new default available at
+
+  http://foobar.appspot.com
+
+A small README with these and a few more application specific hints is
+generated along with the source code. Have fun.
+
+== Copyright & License
+
+Copyright (c) 2009 Holtzbrinck Digital GmbH, Jan Ulbrich
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.

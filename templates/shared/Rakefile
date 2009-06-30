@@ -1,0 +1,68 @@
+require 'rake'
+require 'rake/testtask'
+require 'rake/rdoctask'
+
+Dir[File.join(File.dirname(__FILE__), 'lib', 'tasks', '*.rake')].each do |ext|
+  load ext
+end
+
+desc 'Display some help and the README'
+task :help do
+  puts 'Call "jruby -S rake --tasks" to learn what tasks are available...'
+  puts
+  puts File.read('README')
+end
+
+task :default => [:help]
+
+namespace :jruby do
+  desc 'Split the way too large JRuby JAR into two smaller files'
+  task :splitjars do  
+    puts 'Split the way too large JRuby JAR into two smaller files.'
+    libdir = File.join(File.dirname(__FILE__), 'lib')
+    puts `#{libdir}/split-jruby.sh`
+  end
+
+  desc 'Runs the splitjars task if splitted files not already exist'
+  task :check4jars do
+    file1 = File.join(File.dirname(__FILE__), 'lib', 'jruby-core.jar')
+    file2 = File.join(File.dirname(__FILE__), 'lib', 'ruby-stdlib.jar')
+
+    begin
+      File.stat(file1)
+      File.stat(file2)
+    rescue Errno::ENOENT
+      puts 'Need to copy and split JAR files. Generating them on the fly now...'
+      Rake::Task['jruby:splitjars'].invoke
+    end
+  end
+end
+
+namespace :appengine do
+  desc 'Create the WAR file for deployment'
+  task :war do
+    puts 'Create the WAR file for deployment.'
+    puts `jruby -S warble`
+  end
+
+  desc 'Upload the new application code'
+  task :upload do
+    puts 'Upload the new application code.'
+    puts `appcfg.sh --enable_jar_splitting --email=jan@ulbrich-boerwang.de update tmp/war`
+  end
+
+  desc 'Roll back a blocked and halfway broken deploy'
+  task :rollback do
+    puts 'Roll back a blocked and halfway broken deploy.'
+    puts `appcfg.sh --enable_jar_splitting rollback tmp/war`
+  end
+
+  desc 'Remove temp stuff'
+  task :clean do
+    puts 'Remove temp stuff.'
+    puts `rm -rf tmp slingyard.war`
+  end
+
+  desc 'Deploy the application (generating WAR plus uploading files)'
+  task :deploy => ['jruby:check4jars', :war, :upload]
+end

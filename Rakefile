@@ -11,6 +11,10 @@ spec = Gem::Specification.new do |spec|
   Find.find('templates') { |path|
     template_files << path if not File.stat(path).directory? }
 
+  files = FileList['bin/*', 'lib/*.rb', 'tests/*.rb'].to_a + template_files
+
+  p files
+
   spec.platform = Gem::Platform::RUBY
   spec.name = 'jruby-enginize'
   spec.homepage = 'http://github.com/ulbrich/jruby-enginize'
@@ -18,7 +22,7 @@ spec = Gem::Specification.new do |spec|
   spec.author = 'Jan Ulbrich'
   spec.email = 'jan.ulbrich @nospam@ holtzbrinck.com'
   spec.summary = 'A package for generating Google AppEngine compliant JRuby projects.'
-  spec.files = FileList['bin/*', 'lib/*.rb', 'tests/*.rb'].to_a + template_files
+  spec.files = files
   spec.require_path = '.'
   spec.test_files = Dir.glob('tests/*.rb')
   spec.has_rdoc = true

@@ -47,8 +47,8 @@ namespace :appengine do
 
   desc 'Upload the new application code'
   task :upload do
-    puts 'Upload the new application code.'
-    puts `appcfg.sh --enable_jar_splitting --email=jan@ulbrich-boerwang.de update tmp/war`
+    puts 'Upload the new application code (this may take a while).'
+    puts `appcfg.sh --enable_jar_splitting --email={{email}} update tmp/war`
   end
 
   desc 'Roll back a blocked and halfway broken deploy'

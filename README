@@ -8,23 +8,30 @@ Sinatra on board for the moment being. If you want to learn more about Google
 AppEngine, go to http://code.google.com/appengine and have a look at the
 tutorials.
 
-*Attention*: Be sure to install with <tt>jgem</tt> as JRuby-Enginize will
-refuse to work in normal Ruby environment. It is for creating application
-running on Google AppEngine and it makes no sense outside JRuby!
-
 == Prerequisites
 
 JRuby-Enginize needs a proper JRuby installation including rake and the
 Google AppEngine SDK for Java. More dependencies depend on the framework
 template to generate an application for: For Sinatra
 (http://www.sinatrarb.com), you will need the "sinatra" gem. Be sure to
-install these gems with <tt>jgem</tt> as you need them for JRuby and not for
-Ruby.
+install such gems with <tt>jgem</tt> or <tt>jruby -S gem</tt> as you need
+them for JRuby and not for Ruby.
 
 You also need an Google AppEngine account to actually publish your code.
 Without account you can still play around with the tool and run applications
 locally.
 
+== Installation
+
+Install JRuby-Enginize as a gem with
+
+  jgem sources -a http://gems.github.com  # Only needed once!
+  sudo jgem install ulbrich-jruby-enginize
+
+and be sure to really install with <tt>jgem</tt> as JRuby-Enginize will
+refuse to work in normal Ruby environment. It is for creating application
+running on Google AppEngine and it makes no sense outside JRuby!
+  
 == Using jruby-enginize
 
 The gem includes is a single executable named <tt>jruby-enginize</tt> which is

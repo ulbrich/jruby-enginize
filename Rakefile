@@ -33,12 +33,12 @@ Rake::GemPackageTask.new(spec) do |pkg|
 end
 
 task :default => "pkg/#{spec.name}-#{spec.version}.gem" do
-  puts 'Generated latest version'
+  puts 'Generated latest version.'
 end
 
 desc 'Remove directories "pkg" and "doc"'
 task :clean do
-  puts 'Remove directories "pkg" and "doc"'
+  puts 'Remove directories "pkg" and "doc".'
   `rm -rf pkg doc`
 end
 

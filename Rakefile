@@ -13,7 +13,9 @@ spec = Gem::Specification.new do |spec|
 
   files = FileList['bin/*', 'lib/*.rb', 'tests/*.rb'].to_a + template_files
 
+  puts 'Files for updating specs file "jruby-enginize.gemspec":'
   p files
+  puts
 
   spec.platform = Gem::Platform::RUBY
   spec.name = 'jruby-enginize'

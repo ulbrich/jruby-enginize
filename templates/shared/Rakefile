@@ -19,8 +19,7 @@ namespace :jruby do
   desc 'Split the way too large JRuby JAR into two smaller files'
   task :splitjars do  
     puts 'Split the way too large JRuby JAR into two smaller files.'
-    libdir = File.join(File.dirname(__FILE__), 'lib')
-    puts `#{libdir}/split-jruby.sh`
+    `(#{File.join(File.dirname(__FILE__), 'lib')}/split-jruby.sh) 1>&2`
   end
 
   desc 'Runs the splitjars task if splitted files not already exist'
@@ -42,25 +41,25 @@ namespace :appengine do
   desc 'Create the WAR file for deployment'
   task :war do
     puts 'Create the WAR file for deployment.'
-    puts `jruby -S warble`
+    `(jruby -S warble) 1>&2`
   end
 
   desc 'Upload the new application code'
   task :upload do
     puts 'Upload the new application code (this may take a while).'
-    puts `appcfg.sh --enable_jar_splitting --email={{email}} update tmp/war`
+    `(appcfg.sh --enable_jar_splitting --email={{email}} update tmp/war) 1>&2`
   end
 
   desc 'Roll back a blocked and halfway broken deploy'
   task :rollback do
     puts 'Roll back a blocked and halfway broken deploy.'
-    puts `appcfg.sh --enable_jar_splitting rollback tmp/war`
+    `(appcfg.sh --enable_jar_splitting rollback tmp/war) 1>&2`
   end
 
   desc 'Remove temp stuff'
   task :clean do
     puts 'Remove temp stuff.'
-    puts `rm -rf tmp slingyard.war`
+    `rm -rf tmp {{name}}.war`
   end
 
   desc 'Deploy the application (generating WAR plus uploading files)'

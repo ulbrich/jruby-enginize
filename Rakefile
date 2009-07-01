@@ -13,10 +13,6 @@ spec = Gem::Specification.new do |spec|
 
   files = FileList['bin/*', 'lib/*.rb', 'tests/*.rb'].to_a + template_files
 
-  puts 'Files for updating specs file "jruby-enginize.gemspec":'
-  p files
-  puts
-
   spec.platform = Gem::Platform::RUBY
   spec.name = 'jruby-enginize'
   spec.homepage = 'http://github.com/ulbrich/jruby-enginize'
@@ -48,10 +44,41 @@ task :clean do
   `rm -rf pkg doc`
 end
 
-desc 'Creates rdoc documentation from the code'
+desc 'Create rdoc documentation from the code'
 task :doc do
   `rm -rf doc`
 
-  `rdoc --include bin/jruby-enginize --exclude pkg --exclude templates \
-    --all --title "JRuby-Enginize" README.rdoc lib`
+  puts 'Create rdoc documentation from the code'
+  puts `(rdoc --include bin/jruby-enginize --exclude pkg --exclude templates \
+          --all --title "JRuby-Enginize" README.rdoc lib) 1>&2`
+end
+
+desc 'Update the jruby-enginize.gemspec file with new snapshot of files to bundle'
+task :gemspecs do
+  puts 'Update the jruby-enginize.gemspec file with new snapshot of files to bundle.'
+
+  # !!Warning: We can't use spec.to_ruby as this generates executable code
+  # which would break Github gem generation...
+
+  template = <<EOF
+# JRuby-Enginize, a generator for Google AppEngine compliant JRuby apps.
+
+Gem::Specification.new do |spec|
+  spec.platform = #{spec.platform.inspect}
+  spec.name = #{spec.name.inspect}
+  spec.homepage = #{spec.homepage.inspect}
+  spec.version = "#{spec.version}"
+  spec.author = #{spec.author.inspect}
+  spec.email = #{spec.email.inspect}
+  spec.summary = #{spec.summary.inspect}
+  spec.files = #{spec.files.inspect}
+  spec.require_path = #{spec.require_path.inspect}
+  spec.has_rdoc = #{spec.has_rdoc}
+  spec.executables = #{spec.executables.inspect}
+  spec.extra_rdoc_files = #{spec.extra_rdoc_files.inspect}
+  spec.rdoc_options = #{spec.rdoc_options.inspect}
+end
+EOF
+
+  File.open('jruby-enginize.gemspec', 'w').write(template)
 end

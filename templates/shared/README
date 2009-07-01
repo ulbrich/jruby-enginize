@@ -5,11 +5,12 @@ something more meaningful... ;-)
 
 GOOGLE APPENGINE DEPLOYMENT
 
-As a basic requirement, copy and split the JRuby-JAR calling
-
-  jrake jruby:splitjars
-
-once and after each upgrade to a new version of JRuby.
+!!Attention: As a basic requirement, the JRuby archive "jruby-complete.jar"
+has to be placed in the "lib" directory of your app and this is way to large
+to include it in the generator. If you have this file on your disk, copy it
+over and be sure to rename it to "jruby-complete.jar". If missing, the
+deployment will download the file for you. Expect a 10 MB download (only done
+once).
 
 Deploy the application with
 

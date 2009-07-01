@@ -2,8 +2,28 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 
+require 'net/http'
+
 Dir[File.join(File.dirname(__FILE__), 'lib', 'tasks', '*.rake')].each do |ext|
   load ext
+end
+
+# Helper for retrieving HTML files. Only used to check or trigger things so
+# no highclass implementation...
+
+def fetch(uri, limit = 10)
+  raise ArgumentError, 'HTTP redirect too deep' if limit == 0
+
+  response = Net::HTTP.get_response(URI.parse(uri))
+
+  case response
+  when Net::HTTPSuccess then
+    return response
+  when Net::HTTPRedirection then
+    return fetch(response['location'], limit - 1)
+  else
+    return response.error!
+  end
 end
 
 desc 'Display some help and the README'
@@ -16,23 +36,45 @@ end
 task :default => [:help]
 
 namespace :jruby do
-  desc 'Split the way too large JRuby JAR into two smaller files'
-  task :splitjars do  
-    puts 'Split the way too large JRuby JAR into two smaller files.'
-    `(#{File.join(File.dirname(__FILE__), 'lib')}/split-jruby.sh) 1>&2`
-  end
-
-  desc 'Runs the splitjars task if splitted files not already exist'
-  task :check4jars do
-    file1 = File.join(File.dirname(__FILE__), 'lib', 'jruby-core.jar')
-    file2 = File.join(File.dirname(__FILE__), 'lib', 'ruby-stdlib.jar')
+  desc 'Download current "jruby-complete.jar" from dist.codehaus.org.'
+  task :download do
+    puts 'Download current "jruby-complete.jar" from dist.codehaus.org.'
 
     begin
-      File.stat(file1)
-      File.stat(file2)
+      baseurl = 'http://dist.codehaus.org/jruby/current'
+      directory = fetch(baseurl)
+  
+      if directory.kind_of? Net::HTTPOK and
+        (match = directory.body.match(/.*"(jruby-complete-[^"]*\.jar)".*/)) and
+        match.length == 2
+      then
+        `(curl -o lib/jruby-complete.jar "#{baseurl}/#{match[1]}") 1>&2`
+        raise Errno::ENOENT if $? != 0
+      else
+        raise Errno::ENOENT
+      end
+    rescue Exception
+      puts '!!Could not download "jruby-complete.jar". Retry or download manually.'
+      exit(1)
+    end
+  end
+
+  desc 'Run the jruby:download task if the JRuby JAR is missing.'
+  task :check4jar do
+    file = File.join(File.dirname(__FILE__), 'lib', 'jruby-complete.jar')
+
+    puts 'Run the jruby:download task if the JRuby JAR is missing.'
+
+    begin
+      File.stat(file)
+
+      `(unzip -l #{file}) 2>&1`
+      raise Errno::ENOENT if $? != 0
+
+      puts 'JRuby JAR already exists.'
     rescue Errno::ENOENT
-      puts 'Need to copy and split JAR files. Generating them on the fly now...'
-      Rake::Task['jruby:splitjars'].invoke
+      puts 'Need to download JRuby JAR. Downloading now...'
+      Rake::Task['jruby:download'].invoke
     end
   end
 end
@@ -62,6 +104,6 @@ namespace :appengine do
     `rm -rf tmp {{name}}.war`
   end
 
-  desc 'Deploy the application (generating WAR plus uploading files)'
-  task :deploy => ['jruby:check4jars', :war, :upload]
+  desc 'Deploy the application (generating WAR and uploading files)'
+  task :deploy => ['jruby:check4jar', :war, :upload]
 end

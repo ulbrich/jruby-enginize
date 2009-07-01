@@ -25,7 +25,7 @@ locally.
 
 Install JRuby-Enginize as a gem with
 
-  jgem sources -a http://gems.github.com  # Only needed once!
+  sudo jgem sources -a http://gems.github.com  # Only needed once!
   sudo jgem install ulbrich-jruby-enginize
 
 and be sure to really install with <tt>jgem</tt> as JRuby-Enginize will

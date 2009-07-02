@@ -3,19 +3,26 @@
 == About
 
 JRuby-Enginize is a generator for Google AppEngine compliant JRuby
-applications. The generator will support several frameworks but only has
-Sinatra on board for the moment being. If you want to learn more about Google
+applications. The generator currently supports Sinatra and Merb with more
+frameworks to come in the future. If you want to learn more about Google
 AppEngine, go to http://code.google.com/appengine and have a look at the
-tutorials.
+tutorials. For more about JRuby, please go to http://www.codehaus.org and see
+what's up running Ruby applications on a Java VM.
 
 == Prerequisites
 
 JRuby-Enginize needs a proper JRuby installation including rake and the
 Google AppEngine SDK for Java. More dependencies depend on the framework
-template to generate an application for: For Sinatra
-(http://www.sinatrarb.com), you will need the "sinatra" gem. Be sure to
-install such gems with <tt>jgem</tt> or <tt>jruby -S gem</tt> as you need
-them for JRuby and not for Ruby.
+template to generate an application for:
+
+For Sinatra (http://www.sinatrarb.com), you will need the "sinatra" gem with
+"haml" and "sass".
+
+For Merb (http://www.merbivore.com), you will need the "merb-core" gem with
+"extlib" and "appengine-apis".
+
+Be sure to install gems with <tt>jgem</tt> or <tt>jruby -S gem</tt> as you
+need them for JRuby and not for Ruby.
 
 You also need an Google AppEngine account to actually publish your code.
 Without account you can still play around with the tool and run applications
@@ -51,7 +58,7 @@ Here are the steps for creating and deploying a new Sinatra application:
 
 * Generate your application. Sample:
 
-  <tt>jruby -S jruby-enginize --email foo@bar.com foobar</tt>
+  <tt>jruby -S jruby-enginize --template merb --email foo@bar.com foobar</tt>
 
 * Go to the new directory, learn about the available rake tasks and try out
   your application: 

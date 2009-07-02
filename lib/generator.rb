@@ -5,6 +5,7 @@
 
 require 'ftools'
 require 'find'
+require 'digest/md5'
 
 module JRubyEnginize # :nodoc:
 
@@ -132,16 +133,50 @@ module JRubyEnginize # :nodoc:
       #
       # [source] Source file
       # [target] Target file
+      #
+      # The source files may contain some variables which are replaced on the
+      # fly. All variables are set in double curly brackets and are let passed
+      # without modification if they ar not recognized.
+      #
+      # Supported variables:
+      #
+      # [{{email}}] E-mail address of the Google AppEngine account
+      # [{{name}}] Name of the application
+      # [{{template}}] Name of the template (e.g. "sinatra")
+      # [{{hexrand-xx}}] Hexadecimal random string with xx characters
+      # [{{numrand-xx}}] Random number with xx digits
 
       def process_file(source, target)
-        content = File.read(source).gsub(/\{\{[^}]*\}\}/) do |match|
-          case match
+        content = File.read(source).gsub(/\{\{[^}]*\}\}/) do |variable|
+          case variable
           when '{{email}}'
             email
           when '{{name}}'
             name
           else
-            match
+            if hexrand = variable.match(/{{hexrand-([0-9]+)}}/) and
+              hexrand.length == 2 and (len = hexrand[1].to_i) > 0
+            then
+              str = ''
+
+              while str.length < len do
+                str << Digest::MD5.hexdigest("#{rand}-#{Time.now}-#{rand}")
+              end
+
+              str[0, len]
+            elsif numrand = variable.match(/{{numrand-([0-9]+)}}/) and
+              numrand.length == 2 and (len = numrand[1].to_i) > 0
+            then
+              str = ''
+
+              while str.length < len do
+                str << rand.to_s.sub(/^.*\.0*/, '')
+              end
+
+              str[0, len]
+            else
+              variable
+            end
           end
         end
 

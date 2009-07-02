@@ -64,10 +64,11 @@ module JRubyEnginize # :nodoc:
         begin
           opt.parse!(ARGV)
 
-          raise "missing directory name" if (path = ARGV.first).nil? or path.empty?
-          raise "directory already exists" if FileTest.exists? path
+          raise 'missing directory name' if (path = ARGV.first).nil? or path.empty?
+          raise 'directory already exists' if FileTest.exists? path
+          raise 'unknown template' if not JRubyEnginize::Generator.templates.include? template
 
-          raise "missing e-mail address" if email.nil? or email.empty?
+          raise 'missing e-mail address' if email.nil? or email.empty?
         rescue SystemExit
           exit(1)
         rescue Exception => exception

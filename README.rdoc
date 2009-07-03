@@ -58,12 +58,12 @@ Here are the steps for creating and deploying a new Sinatra application:
 
 * Generate your application. Sample:
 
-  <tt>jruby -S jruby-enginize --template merb --email foo@bar.com foobar</tt>
+  <tt>jruby -S jruby-enginize --template sinatra --email foo@bar.com jruby-enginize</tt>
 
 * Go to the new directory, learn about the available rake tasks and try out
   your application: 
 
-  <tt>cd foobar</tt>
+  <tt>cd jruby-enginize</tt>
   <tt>jruby rake --tasks</tt>
 
   <tt>jruby -S rake sinatra:run</tt>
@@ -79,18 +79,18 @@ an unstable version and don't want to risk your users getting exceptions.
 
 You can try the new version by opening e.g.
 
-<tt>http://3.latest.foobar.appspot.com</tt>
+<tt>http://3.latest.jruby-enginize.appspot.com</tt>
 
 and replacing "3" with the version number you want to run.
 
 Switch the application to the new version as default (stable version) by
 opening
 
-<tt>http://appengine.google.com/deployment?&app_id=foobar</tt>
+<tt>http://appengine.google.com/deployment?&app_id=jruby-enginize</tt>
 
 and setting a new default available at
 
-<tt>http://foobar.appspot.com</tt>
+<tt>http://jruby-enginize.appspot.com</tt>
 
 A small README with these and a few more application specific hints is
 generated along with the source code. Have fun.

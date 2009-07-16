@@ -60,9 +60,9 @@ module JRubyEnginize # :nodoc:
       raise ArgumentError, "Template \"#{template}\" missing" unless File.stat(templatedir).directory?
 
       if dryrun
-        puts "Dry run which would generate the following files for template \"#{template}\":"
+        puts "Dry run which would generate the following files from template \"#{template}\":"
       else
-        puts "Generating files for template \"#{template}\"."
+        puts "Generating files from template \"#{template}\"."
       end
 
       template_files(shareddir, templatedir).each do |key, path|

@@ -59,19 +59,28 @@ module JRubyEnginize # :nodoc:
       raise ArgumentError, 'Missing shared templates' unless File.stat(shareddir).directory?
       raise ArgumentError, "Template \"#{template}\" missing" unless File.stat(templatedir).directory?
 
-      
-      puts "!!no changes written as this is only a dry run...\n" if dryrun
-      puts "Generating files for template \"#{template}\":\n\n"
+      if dryrun
+        puts "Dry run which would generate the following files for template \"#{template}\":"
+      else
+        puts "Generating files for template \"#{template}\"."
+      end
 
       template_files(shareddir, templatedir).each do |key, path|
         target = File.join(self.path, key)
-        puts "  Creating \"#{target}\" from template\n    file \"#{path}\""
 
-        process_file(path, target) unless dryrun
+        if dryrun
+          puts "  Creating \"#{target}\" from template\n    file \"#{path}\""
+        else
+          process_file(path, target)
+        end
       end
       
-      puts "\nYour next steps:\n\n  cd #{self.path}\n\n  jruby -S rake"
-      puts "  jruby -S rake --tasks\n\n  jruby -S rake appengine:deploy\n\n"
+      if not dryrun
+        puts "Done with directory \"#{self.path}\"."
+
+        puts "\nYour next steps:\n  cd #{self.path}\n\n  jruby -S rake"
+        puts "  jruby -S rake --tasks\n\n  jruby -S rake appengine:deploy"
+      end
     end
 
     # Returns an Array with the available template names.

@@ -1,4 +1,4 @@
-# Implement task for loading gems needed by this template.
+# Task for loading gems needed by this template. Bootstrap to get installed...
 
 namespace :template do
   desc 'Load missing gems to local gem repository'

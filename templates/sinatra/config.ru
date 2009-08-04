@@ -4,8 +4,8 @@ require 'appengine-rack'
 require 'sinatra'
 
 AppEngine::Rack.configure_app(
-    :application => '{{name}}',
     # :ssl_enabled => true,
+    :application => '{{name}}',
     :version => 1)
 
 require 'app'

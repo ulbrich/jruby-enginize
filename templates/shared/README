@@ -60,7 +60,8 @@ SOME MORE INFO
   is called, this directory will be created and "jruby-rack-xx.jar" is
   downloaded from its homepage.
   
-  The first call 
+  The first call to "rake appengine:run" or "rake appengine:deploy" with 
+  downloading the rack jar will fail. Just ignore and retry.
 
 - "WEB-INF/lib/gems.jar" is only created or updated after a call to
   "appcfg.rb gem". This is enforced by "rake appengine:deploy" but not by

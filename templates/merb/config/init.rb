@@ -17,7 +17,7 @@ end
 
 # Move this to app.rb if you want it to be reloadable in dev mode.
 Merb::Router.prepare do
-  match('/').to(:controller => "engine_app", :action =>'index')
+  match('/').to(:controller => 'engine_app', :action =>'index')
 
   default_routes
 end

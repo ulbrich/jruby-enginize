@@ -1,0 +1,5 @@
+18c18
+<       File.join(File.dirname(__FILE__), '..', '..', file)
+---
+>       File.join(File.dirname(File.dirname(File.dirname(__FILE__))), file)
+

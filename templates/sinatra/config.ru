@@ -1,13 +1,13 @@
 require 'rubygems'
+require 'appengine-rack'
+
 require 'sinatra'
- 
-root_dir = File.dirname(__FILE__)
- 
-set :environment, :production
-set :root, root_dir
-set :app_file, File.join(root_dir, 'app.rb')
-disable :run
- 
+
+AppEngine::Rack.configure_app(
+    :application => '{{name}}',
+    # :ssl_enabled => true,
+    :version => 1)
+
 require 'app'
  
 run Sinatra::Application

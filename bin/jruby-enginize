@@ -1,4 +1,4 @@
-#!//usr/bin/env jruby -S
+#!//usr/bin/env ruby
 # JRuby-Enginize, a generator for Google AppEngine compliant JRuby apps.
 
 require 'lib/script'

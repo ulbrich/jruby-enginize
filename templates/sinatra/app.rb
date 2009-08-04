@@ -5,10 +5,17 @@ require 'rubygems'
 begin
   require 'haml'
   require 'sass'
+
   require 'sinatra'
 rescue LoadError => exception
-  $stderr.puts '!!missing sinatra. Install sinatra gem and try again.'
-  exit(1)
+end
+
+# Helpers to include...
+
+helpers do
+  include Rack::Utils
+
+  alias_method :h, :escape_html
 end
 
 # GET /

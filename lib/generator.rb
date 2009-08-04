@@ -78,8 +78,10 @@ module JRubyEnginize # :nodoc:
       if not dryrun
         puts "Done with directory \"#{self.path}\"."
 
-        puts "\nYour next steps:\n  cd #{self.path}\n\n  jruby -S rake"
-        puts "  jruby -S rake --tasks\n\n  jruby -S rake appengine:deploy"
+        puts "\nYour next steps:\n  cd #{self.path}\n\n  sudo rake template:gems"
+        puts "\n  rake\n  rake --tasks"
+        puts "\n  rake appengine:run # First call may fail: Just retry!"
+        puts "\n  rake appengine:deploy"
       end
     end
 
@@ -159,11 +161,12 @@ module JRubyEnginize # :nodoc:
         content = File.read(source).gsub(/\{\{[^}]*\}\}/) do |variable|
           case variable
           when '{{email}}'
+            raise 'missing e-mail address' if email.nil? or email.empty?
             email
           when '{{name}}'
             name
           else
-            if hexrand = variable.match(/{{hexrand-([0-9]+)}}/) and
+            if hexrand = variable.match(/\{\{hexrand-([0-9]+)\}\}/) and
               hexrand.length == 2 and (len = hexrand[1].to_i) > 0
             then
               str = ''
@@ -173,7 +176,7 @@ module JRubyEnginize # :nodoc:
               end
 
               str[0, len]
-            elsif numrand = variable.match(/{{numrand-([0-9]+)}}/) and
+            elsif numrand = variable.match(/\{\{numrand-([0-9]+)\}\}/) and
               numrand.length == 2 and (len = numrand[1].to_i) > 0
             then
               str = ''

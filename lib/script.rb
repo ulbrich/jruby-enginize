@@ -26,6 +26,7 @@ module JRubyEnginize # :nodoc:
 
       prog = File.basename($0)
 
+=begin
       # Check for running with JRuby: The whole generator makes no sense if not 
       # running with or at least for JRuby...
 
@@ -35,6 +36,7 @@ module JRubyEnginize # :nodoc:
         $stderr.puts "!!#{prog} makes only sense on JRuby systems. Please try again." 
         exit(1)
       end
+=end
 
       # The AppEngine SDK has to be around, too.
 
@@ -67,7 +69,7 @@ module JRubyEnginize # :nodoc:
           raise 'missing directory name' if (path = ARGV.first).nil? or path.empty?
           raise 'directory already exists' if FileTest.exists? path
           raise 'unknown template' if not JRubyEnginize::Generator.templates.include? template
-
+          
           raise 'missing e-mail address' if email.nil? or email.empty?
         rescue SystemExit
           exit(1)

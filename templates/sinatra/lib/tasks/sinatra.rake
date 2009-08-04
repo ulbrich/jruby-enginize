@@ -1,7 +1,14 @@
-namespace :sinatra do
-  desc 'Start a local test server on port 4567'
-  task :run do
-    puts 'Start a local test server on port 4567'
-    `(jruby -S app.rb) 1>&2`
+# Implement task for loading gems needed by this template.
+
+namespace :template do
+  desc 'Load missing gems to local gem repository'
+  task :gems do
+    puts 'Load missing gems to local gem repository'
+    `(sudo appcfg.rb gem install jruby-openssl haml sinatra) 1>&2`
   end
+end
+
+# Add your own tasks...
+
+namespace :sinatra do
 end

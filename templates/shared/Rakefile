@@ -28,82 +28,44 @@ end
 
 desc 'Display some help and the README'
 task :help do
-  puts 'Call "jruby -S rake --tasks" to learn what tasks are available...'
+  puts 'Call "rake --tasks" to learn what tasks are available...'
   puts
   puts File.read('README')
 end
 
 task :default => [:help]
 
-namespace :jruby do
-  desc 'Download current "jruby-complete.jar" from dist.codehaus.org.'
-  task :download do
-    puts 'Download current "jruby-complete.jar" from dist.codehaus.org.'
-
-    begin
-      baseurl = 'http://dist.codehaus.org/jruby/current'
-      directory = fetch(baseurl)
-  
-      if directory.kind_of? Net::HTTPOK and
-        (match = directory.body.match(/.*"(jruby-complete-[^"]*\.jar)".*/)) and
-        match.length == 2
-      then
-        `(curl -o lib/jruby-complete.jar "#{baseurl}/#{match[1]}") 1>&2`
-        raise Errno::ENOENT if $? != 0
-      else
-        raise Errno::ENOENT
-      end
-    rescue Exception
-      puts '!!Could not download "jruby-complete.jar". Retry or download manually.'
-      exit(1)
-    end
-  end
-
-  desc 'Run the jruby:download task if the JRuby JAR is missing.'
-  task :check4jar do
-    file = File.join(File.dirname(__FILE__), 'lib', 'jruby-complete.jar')
-
-    puts 'Run the jruby:download task if the JRuby JAR is missing.'
-
-    begin
-      File.stat(file)
-
-      `(unzip -l #{file}) 2>&1`
-      raise Errno::ENOENT if $? != 0
-
-      puts 'JRuby JAR already exists.'
-    rescue Errno::ENOENT
-      puts 'Need to download JRuby JAR. Downloading now...'
-      Rake::Task['jruby:download'].invoke
-    end
-  end
-end
-
 namespace :appengine do
-  desc 'Create the WAR file for deployment'
-  task :war do
-    puts 'Create the WAR file for deployment.'
-    `(jruby -S warble) 1>&2`
+  desc 'Start a local test server on port 8000'
+  task :run do
+    puts 'Start a local test server on port 8000'
+    `(dev_appserver.rb .) 1>&2`
   end
 
-  desc 'Upload the new application code'
-  task :upload do
+  desc 'Force rebuilding "WEB-INF/lib/gems.jar"'
+  task :rebuildgems do
+    puts 'Force rebuilding "WEB-INF/lib/gems.jar"'
+    `(appcfg.rb gem help install) 2> /dev/null 1>&2`
+  end
+
+  desc 'Build the application package'
+  task :bundle do
+    puts 'Build the application package.'
+    `(appcfg.rb --email={{email}} --enable_jar_splitting bundle .) 1>&2`
+  end
+
+  desc 'Upload the application code to the server'
+  task :update do
     puts 'Upload the new application code (this may take a while).'
-    `(appcfg.sh --enable_jar_splitting --email={{email}} update tmp/war) 1>&2`
+    `(appcfg.rb --email={{email}} --enable_jar_splitting update .) 1>&2`
   end
 
   desc 'Roll back a blocked and halfway broken deploy'
   task :rollback do
     puts 'Roll back a blocked and halfway broken deploy.'
-    `(appcfg.sh --enable_jar_splitting rollback tmp/war) 1>&2`
+    `(appcfg.rb --email={{email}} rollback .) 1>&2`
   end
 
-  desc 'Remove temp stuff'
-  task :clean do
-    puts 'Remove temp stuff.'
-    `rm -rf tmp {{name}}.war`
-  end
-
-  desc 'Deploy the application (generating WAR and uploading files)'
-  task :deploy => ['jruby:check4jar', :war, :upload]
+  desc 'Deploy the application (build package and upload application code)'
+  task :deploy => [:rebuildgems, :bundle, :update]
 end

@@ -12,70 +12,83 @@ what's up running Ruby applications on a Java VM.
 == Prerequisites
 
 JRuby-Enginize needs a proper JRuby installation including rake and the
-Google AppEngine SDK for Java. More dependencies depend on the framework
-template to generate an application for:
+Google AppEngine SDK (http://code.google.com/appengine/downloads.html) for
+Java.
 
-For Sinatra (http://www.sinatrarb.com), you will need the "sinatra" gem with
-"haml" and "sass".
-
-For Merb (http://www.merbivore.com), you will need the "merb-core" gem with
-"extlib" and "appengine-apis".
-
-Be sure to install gems with <tt>jgem</tt> or <tt>jruby -S gem</tt> as you
-need them for JRuby and not for Ruby.
-
-You also need an Google AppEngine account to actually publish your code.
-Without account you can still play around with the tool and run applications
-locally.
+More dependencies depend on the framework template to generate an application
+for, but installation of additional gems is done with tools provided by
+Google (so below).
 
 == Installation
 
-Install JRuby-Enginize as a gem with
+The Google people worked hard to make JRuby easier to deploy than it was at
+the beginning, so don't blindly trust all those blog posts and samples you'll
+find but use the newest version of jruby-enginize and have a look at the Wiki
+page of the Google AppEngine JRuby tools
+(http://code.google.com/p/appengine-jruby/wiki/GettingStarted)
+to learn about the details beyond.
 
-  sudo jgem sources -a http://gems.github.com  # Only needed once!
-  sudo jgem install ulbrich-jruby-enginize
+These are the steps for installing the Google tools plus JRuby-Enginize
+running on top of it to streamline your first steps:
 
-and be sure to really install with <tt>jgem</tt> as JRuby-Enginize will
-refuse to work in normal Ruby environment. It is for creating application
-running on Google AppEngine and it makes no sense outside JRuby!
+  sudo gem sources -a http://gems.github.com  # Only needed once!
+  sudo gem install google-appengine
+  sudo gem install ulbrich-jruby-enginize
+
+You also need an Google AppEngine account to actually publish your code.
+Without account you can still play around with the tools and run applications
+locally.
   
 == Using jruby-enginize
 
-The gem includes is a single executable named <tt>jruby-enginize</tt> which is
-inspired by the <tt>rails</tt> tool for generating Rails applications. So just
-call
+JRuby-Enginize includes is a single executable named <tt>jruby-enginize</tt>
+which is inspired by the <tt>rails</tt> tool for generating Rails applications.
+So just call
 
-  jruby -S jruby-enginize
+  jruby-enginize
 
 and have a look at the options.
 
 Here are the steps for creating and deploying a new Sinatra application:
 
-* Register with Google AppEngine and look for a name for your application
-  which is not already taken. If you don't care about this, you will get in
-  trouble upon deploying your application and have to manually reconfigure
-  all files!
+* Register with Google AppEngine and create a new application ID.
 
-* Generate your application. Sample:
+* Generate your application with that new ID as directory name. Sample:
 
-  <tt>jruby -S jruby-enginize --template sinatra --email foo@bar.com jruby-enginize</tt>
+  <tt>jruby-enginize --template sinatra jruby-enginize</tt>
 
-* Go to the new directory, learn about the available rake tasks and try out
-  your application: 
+* Go to the new directory and install the missing gems first (depends on the
+  template you have chosen):
 
-  <tt>cd jruby-enginize</tt>
-  <tt>jruby rake --tasks</tt>
+  <tt>sudo rake template:gems</tt>
 
-  <tt>jruby -S rake sinatra:run</tt>
+  !!Attention: Whenever you want to install additional gems, be sure
+  to use <tt>appcfg.rb gem</tt> provided by the Google AppEngine JRuby tools 
+  and not <tt>jgem</tt> as Google maintains a local repository per project and
+  bundles the files to upload from that information. You will run into missing
+  gems on the server if you bypass this! Best approach is to use a separate
+  JRuby installation for AppEngine development to run into missing gems when
+  running the application locally, too.
 
-* Deploy the application with the application name and e-mail address you 
-  generated with:
+* Learn about the available rake tasks
 
-  <tt>jruby -S rake appengine:deploy</tt>
+  <tt>rake --tasks</tt>
+
+* Try out your application locally running on port 8080: 
+
+  <tt>rake appengine:run</tt>
+
+* Deploy the application:
+
+  <tt>rake appengine:deploy</tt>
+
+  The first time you deploy your application, you will be asked for e-mail and
+  password to confirm your upload to the server.
 
 You can repeat the deployment whenever you want. Be sure to set the version
-number in "appengine-web.xml" to a new value, when you are experimenting with
-an unstable version and don't want to risk your users getting exceptions.
+number in the AppEngine::Rack.configure_app part of "config.ru" to a new
+value, when you are experimenting with an unstable version and don't want to
+risk your users getting exceptions.
 
 You can try the new version by opening e.g.
 

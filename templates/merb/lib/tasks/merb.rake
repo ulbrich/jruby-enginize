@@ -31,7 +31,7 @@ namespace :template do
   desc 'Load missing gems to local gem repository'
   task :gems do
     puts 'Load missing gems to local gem repository'
-    `(sudo appcfg.rb gem install extlib merb-core) 1>&2`
+    `(sudo appcfg.rb gem install appengine-apis extlib merb-core) 1>&2`
   end
 end
 

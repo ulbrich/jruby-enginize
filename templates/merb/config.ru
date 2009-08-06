@@ -4,9 +4,9 @@ require 'appengine-rack'
 require 'merb-core'
 
 AppEngine::Rack.configure_app(
-    # :ssl_enabled => true,
-    :application => '{{name}}',
-    :version => 1)
+  # :ssl_enabled => true,
+  :application => '{{name}}',
+  :version => 1)
 
 Merb::Config.setup(:merb_root => File.dirname(__FILE__),
                    :environment => ENV['RACK_ENV'])

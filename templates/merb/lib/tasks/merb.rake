@@ -30,8 +30,13 @@ end
 namespace :template do
   desc 'Load missing gems to local gem repository'
   task :gems do
+    if (appcfg = `which appcfg.rb`.chomp).empty?
+      $stderr.puts '!!Error: Could not find "appcfg.rb"'
+      exit
+    end
+
     puts 'Load missing gems to local gem repository'
-    `(sudo appcfg.rb gem install appengine-apis extlib merb-core) 1>&2`
+    `(sudo #{appcfg} gem install appengine-apis extlib merb-core) 1>&2`
   end
 end
 

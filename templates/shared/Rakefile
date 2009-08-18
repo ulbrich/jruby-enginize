@@ -26,6 +26,22 @@ def fetch(uri, limit = 10)
   end
 end
 
+# Returns an absolute path for the requested executable. Falls back to 
+# returning only the executable if an exception is raised.
+
+def which_executable(executable)
+  begin
+    if (path = `which #{executable}`.chomp).empty?
+      $stderr.puts "!!Error: Could not find \"#{executable}\""
+      exit
+    end
+  rescue Exception
+    path = executable
+  end
+
+  return path
+end
+
 desc 'Display some help and the README'
 task :help do
   puts 'Call "rake --tasks" to learn what tasks are available...'

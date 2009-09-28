@@ -43,7 +43,9 @@ module JRubyEnginize # :nodoc:
       begin
         raise ArgumentError if not File.stat(`which appcfg.sh`.chop).executable?
       rescue Exception
-        $stderr.puts "!!AppEngine SDK missing. Please retry after installing." 
+        $stderr.puts "!!AppEngine SDK missing. Please retry after installing and make sure that" 
+        $stderr.puts "AppEngine configuration tool \"appcfg.sh\" is in your PATH." 
+
         exit(2)
       end
 

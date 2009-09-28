@@ -13,7 +13,8 @@ what's up running Ruby applications on a Java VM.
 
 JRuby-Enginize needs a proper JRuby installation including rake and the
 Google AppEngine SDK (http://code.google.com/appengine/downloads.html) for
-Java.
+Java. Make sure that the AppEngine configuration tool "appcfg.sh" is in your
+PATH as that's what parts of the software are wrapping.
 
 More dependencies depend on the framework template to generate an application
 for, but installation of additional gems is done with tools provided by

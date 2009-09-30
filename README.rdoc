@@ -75,7 +75,7 @@ Here are the steps for creating and deploying a new Sinatra application:
 
   <tt>rake --tasks</tt>
 
-* Try out your application locally running on port 8080: 
+* Try out your application locally: 
 
   <tt>rake appengine:run</tt>
 

@@ -52,9 +52,9 @@ end
 task :default => [:help]
 
 namespace :appengine do
-  desc 'Start a local test server on port 8000'
+  desc 'Start a local test server'
   task :run do
-    puts 'Start a local test server on port 8000'
+    puts 'Start a local test server'
     `(dev_appserver.rb .) 1>&2`
   end
 

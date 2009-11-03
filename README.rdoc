@@ -61,7 +61,7 @@ Here are the steps for creating and deploying a new Sinatra application:
 * Go to the new directory and install the missing gems first (depends on the
   template you have chosen):
 
-  <tt>sudo rake template:gems</tt>
+  <tt>rake template:gems</tt>
 
   !!Attention: Whenever you want to install additional gems, be sure
   to use <tt>appcfg.rb gem</tt> provided by the Google AppEngine JRuby tools 
@@ -77,7 +77,7 @@ Here are the steps for creating and deploying a new Sinatra application:
 
 * Try out your application locally: 
 
-  <tt>rake appengine:run</tt>
+  <tt>sudo rake appengine:run</tt>
 
 * Deploy the application:
 

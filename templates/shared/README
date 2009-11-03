@@ -8,7 +8,7 @@ INSTALL MISSING GEMS
 As a basic requirement, you have to install missing gems required by the
 template (this task is implemented individually for each template):
 
-  sudo rake template:gems
+  rake template:gems
 
 !!Attention: Whenever you want to install additional gems, be sure to use
 "appcfg.rb gem" provided by the Google AppEngine JRuby tools and not "jgem" as
@@ -66,3 +66,6 @@ SOME MORE INFO
 - "WEB-INF/lib/gems.jar" is only created or updated after a call to
   "appcfg.rb gem". This is enforced by "rake appengine:deploy" but not by
   "rake appengine:update".
+
+- Sometimes the local test server keeps running after Ctrl-C, so have a look
+  at "ps" and manually kill the process if needed.

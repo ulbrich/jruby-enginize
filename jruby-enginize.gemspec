@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.platform = "ruby"
   spec.name = "jruby-enginize"
   spec.homepage = "http://github.com/ulbrich/jruby-enginize"
-  spec.version = "0.7.6"
+  spec.version = "0.8"
   spec.author = "Jan Ulbrich"
   spec.email = "jan.ulbrich @nospam@ holtzbrinck.com"
   spec.summary = "A package for generating Google AppEngine compliant JRuby projects."

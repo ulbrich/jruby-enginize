@@ -38,7 +38,7 @@ running on top of it to streamline your first steps:
 
 !!Warning: As Github cancelled gem support, we moved the gem from Github.com
 to Gemcutter.org. If you install from Github, you will not get the newest
-version!
+version! See http://gemcutter.org/gems/jruby-enginize for details.
 
 You also need an Google AppEngine account to actually publish your code.
 Without account you can still play around with the tools and run applications

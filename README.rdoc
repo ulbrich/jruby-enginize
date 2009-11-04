@@ -32,9 +32,13 @@ to learn about the details beyond.
 These are the steps for installing the Google tools plus JRuby-Enginize
 running on top of it to streamline your first steps:
 
-  sudo gem sources -a http://gems.github.com  # Only needed once!
+  sudo gem sources -a http://gemcutter.org  # Only needed once!
   sudo gem install google-appengine
-  sudo gem install ulbrich-jruby-enginize
+  sudo gem install jruby-enginize
+
+!!Warning: As Github cancelled gem support, we moved the gem from Github.com
+to Gemcutter.org. If you install from Github, you will not get the newest
+version!
 
 You also need an Google AppEngine account to actually publish your code.
 Without account you can still play around with the tools and run applications

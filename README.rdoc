@@ -62,18 +62,7 @@ Here are the steps for creating and deploying a new Sinatra application:
 
   <tt>jruby-enginize --template sinatra jruby-enginize</tt>
 
-* Go to the new directory and install the missing gems first (depends on the
-  template you have chosen):
-
-  <tt>rake template:gems</tt>
-
-  !!Attention: Whenever you want to install additional gems, be sure
-  to use <tt>appcfg.rb gem</tt> provided by the Google AppEngine JRuby tools 
-  and not <tt>jgem</tt> as Google maintains a local repository per project and
-  bundles the files to upload from that information. You will run into missing
-  gems on the server if you bypass this! Best approach is to use a separate
-  JRuby installation for AppEngine development to run into missing gems when
-  running the application locally, too.
+* Go to the new directory
 
 * Learn about the available rake tasks
 
@@ -81,7 +70,12 @@ Here are the steps for creating and deploying a new Sinatra application:
 
 * Try out your application locally: 
 
-  <tt>sudo rake appengine:run</tt>
+  <tt>appengine:run</tt>
+
+  !!Attention: Whenever you want to require additional gems, be sure
+  to add them to the bundler configuration in <tt>Gemfile</tt> instead of
+  using <tt>jgem</tt> as the Google toole maintains a local repository per
+  project and bundle the files to upload from that information.
 
 * Deploy the application:
 
@@ -91,9 +85,9 @@ Here are the steps for creating and deploying a new Sinatra application:
   password to confirm your upload to the server.
 
 You can repeat the deployment whenever you want. Be sure to set the version
-number in the AppEngine::Rack.configure_app part of "config.ru" to a new
-value, when you are experimenting with an unstable version and don't want to
-risk your users getting exceptions.
+number in the <tt>AppEngine::Rack.configure_app</tt> part of <tt>config.ru</tt>
+to a new value, when you are experimenting with an unstable version and don't
+want to risk your users getting exceptions.
 
 You can try the new version by opening e.g.
 

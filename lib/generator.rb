@@ -78,9 +78,8 @@ module JRubyEnginize # :nodoc:
       if not dryrun
         puts "Done with directory \"#{self.path}\"."
 
-        puts "\nYour next steps:\n  cd #{self.path}\n\n  rake template:gems"
-        puts "\n  rake\n  rake --tasks"
-        puts "\n  sudo rake appengine:run # First call may fail: Just retry!"
+        puts "\nYour next steps:\n  cd #{self.path}\n\n  rake\n  rake --tasks"
+        puts "\n  rake appengine:run"
         puts "\n  rake appengine:deploy"
       end
     end

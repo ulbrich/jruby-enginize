@@ -59,15 +59,15 @@ namespace :appengine do
   end
 
   desc 'Force rebuilding "WEB-INF/lib/gems.jar"'
-  task :rebuildgems do
+  task :rebundle do
     puts 'Force rebuilding "WEB-INF/lib/gems.jar"'
-    `(appcfg.rb gem help install) 2> /dev/null 1>&2`
+    `(appcfg.rb bundle --update .) 2> /dev/null 1>&2`
   end
 
   desc 'Build the application package'
   task :bundle do
     puts 'Build the application package.'
-    `(appcfg.rb --email={{email}} --enable_jar_splitting bundle .) 1>&2`
+    `(appcfg.rb bundle .) 1>&2`
   end
 
   desc 'Upload the application code to the server'
@@ -83,5 +83,5 @@ namespace :appengine do
   end
 
   desc 'Deploy the application (build package and upload application code)'
-  task :deploy => [:rebuildgems, :bundle, :update]
+  task :deploy => [:bundle, :update]
 end

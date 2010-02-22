@@ -25,18 +25,6 @@ begin
 rescue Exception
 end
 
-# Task for loading gems needed by this template. Bootstrap to get installed...
-
-namespace :template do
-  desc 'Load missing gems to local gem repository'
-  task :gems do
-    appcfg = which_executable('appcfg.rb')
-
-    puts 'Load missing gems to local gem repository'
-    `(sudo #{appcfg} gem install appengine-apis extlib merb-core) 1>&2`
-  end
-end
-
 # Add your own tasks...
 
 namespace :merb do

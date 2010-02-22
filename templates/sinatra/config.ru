@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'appengine-rack'
 
 require 'sinatra'
@@ -6,7 +5,8 @@ require 'sinatra'
 AppEngine::Rack.configure_app(
   # :ssl_enabled => true,
   :application => '{{name}}',
-  :version => 1)
+  :precompilation_enabled => true,
+  :version => '1')
 
 require 'app'
  

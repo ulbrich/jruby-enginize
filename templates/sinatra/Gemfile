@@ -1,0 +1,19 @@
+# Basics for using Appengine
+
+disable_system_gems
+disable_rubygems
+
+bundle_path '.gems/bundler_gems'
+
+source 'http://gemcutter.org'
+
+gem 'appengine-rack'
+gem 'appengine-apis'
+
+# Dependencies for using Sinatra
+
+gem 'haml'
+gem 'sinatra'
+
+# Add more dependencies below...
+

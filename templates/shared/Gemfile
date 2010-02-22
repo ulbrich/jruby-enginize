@@ -1,0 +1,14 @@
+# Basics for using Appengine
+
+disable_system_gems
+disable_rubygems
+
+bundle_path '.gems/bundler_gems'
+
+source 'http://gemcutter.org'
+
+gem 'appengine-rack'
+gem 'appengine-apis'
+
+# Add more dependencies below...
+

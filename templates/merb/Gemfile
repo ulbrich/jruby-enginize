@@ -1,0 +1,20 @@
+# Basics for using Appengine
+
+disable_system_gems
+disable_rubygems
+
+bundle_path '.gems/bundler_gems'
+
+source 'http://gemcutter.org'
+
+gem 'appengine-rack'
+gem 'appengine-apis'
+
+# Dependencies for using Merb
+
+gem 'extlib'
+gem 'rubygems-update'
+gem 'merb-core'
+
+# Add more dependencies below...
+

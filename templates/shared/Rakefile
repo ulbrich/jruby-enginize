@@ -52,10 +52,16 @@ end
 task :default => [:help]
 
 namespace :appengine do
-  desc 'Start a local test server'
+  desc 'Start a local development server'
   task :run do
-    puts 'Start a local test server'
+    puts 'Start a local development server'
     `(dev_appserver.rb .) 1>&2`
+  end
+
+  desc 'Start a local Rack based server'
+  task :run do
+    puts 'Start a local Rack based server'
+    `(appcfg.rb run bin/rackup config.ru) 1>&2`
   end
 
   desc 'Force rebuilding "WEB-INF/lib/gems.jar"'

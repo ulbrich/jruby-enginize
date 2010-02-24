@@ -57,7 +57,11 @@ Here are the steps for creating and deploying a new Sinatra application:
 
 * Register with Google AppEngine and create a new application ID.
 
-* Generate your application with that new ID as directory name. Sample:
+* Generate your application with that new ID as directory name and the e-mail
+  address of your Google account. Optionally choose a template ("sinatra" or
+  "merb" for now).
+
+  Sample:
 
   <tt>jruby-enginize --email john@doe.com --template sinatra jruby-enginize</tt>
 

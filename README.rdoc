@@ -59,7 +59,7 @@ Here are the steps for creating and deploying a new Sinatra application:
 
 * Generate your application with that new ID as directory name. Sample:
 
-  <tt>jruby-enginize --template sinatra jruby-enginize</tt>
+  <tt>jruby-enginize --email john@doe.com --template sinatra jruby-enginize</tt>
 
 * Go to the new directory
 

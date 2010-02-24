@@ -1,15 +1,16 @@
-# Modify load paths to help Merb do some Gem extension work.
+# Load rubygems update and modify load paths to help Merb do some Gem
+# extension work.
 
 require 'rubygems'
 gem 'rubygems-update'
 
-$LOAD_PATH.each_with_index do |path, index|
+$LOAD_PATH.each do |path|
   if (match = path.match(/(.*)\/hide_lib_for_update/))
     $LOAD_PATH << "#{match[1]}/lib"
   end
 end
 
-# Require standard libraries plus Merb and Merb::Bootloader patches.
+# Require standard libraries plus Merb and a Merb::Bootloader patch.
 
 require 'appengine-rack'
 require 'merb-core'

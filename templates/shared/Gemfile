@@ -1,4 +1,4 @@
-# Basics for using Appengine
+# Basics for using Google AppEngine.
 
 disable_system_gems
 disable_rubygems

@@ -9,25 +9,24 @@ AppEngine, go to http://code.google.com/appengine and have a look at the
 tutorials. For more about JRuby, please go to http://www.codehaus.org and see
 what's up running Ruby applications on a Java VM.
 
-== Prerequisites
-
-JRuby-Enginize needs a proper JRuby installation including rake and the
-Google AppEngine SDK (http://code.google.com/appengine/downloads.html) for
-Java. Make sure that the AppEngine configuration tool "appcfg.sh" is in your
-PATH as that's what parts of the software are wrapping.
-
-More dependencies depend on the framework template to generate an application
-for, but installation of additional gems is done with tools provided by
-Google (so below).
-
-== Installation
-
-The Google people worked hard to make JRuby easier to deploy than it was at
-the beginning, so don't blindly trust all those blog posts and samples you'll
+The Google people work hard to make JRuby easier to deploy with each release
+of their tools, so don't blindly trust all those blog posts and samples you'll
 find but use the newest version of jruby-enginize and have a look at the Wiki
 page of the Google AppEngine JRuby tools
 (http://code.google.com/p/appengine-jruby/wiki/GettingStarted)
 to learn about the details beyond.
+
+If you used JRuby-Enginize before, you will note two bigger changes:
+
+* There is no need for a separate JRuby installation anymore, as the
+  google-appengine gem does that for you.
+
+* Gem handling changed as Google now uses bundler and all required gems have
+  to be registered in a new file called "Gemfile". These gems are loaded on
+  the fly when you call "rake appengine:run" or "rake appengine:deploy". Quite
+  elegant...
+
+== Installation
 
 These are the steps for installing the Google tools plus JRuby-Enginize
 running on top of it to streamline your first steps:
@@ -70,7 +69,7 @@ Here are the steps for creating and deploying a new Sinatra application:
 
 * Try out your application locally: 
 
-  <tt>appengine:run</tt>
+  <tt>rake appengine:run</tt>
 
   !!Attention: Whenever you want to require additional gems, be sure
   to add them to the bundler configuration in <tt>Gemfile</tt> instead of

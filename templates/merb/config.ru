@@ -14,7 +14,7 @@ end
 require 'appengine-rack'
 require 'merb-core'
 
-require 'lib/bootloader_patches'
+require 'lib/bootloader_patch'
 
 # Configure and run the application. Attention: Modify the version number
 # whenever you want to test the live environment without breaking the current
